@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+
+<div id="nnl">
+
+</div>
+
+
+
+<button onclick="javascript:addLayer()">Add Layer</button>
+
+<script>
+/*
+$.ajax({
+url: '/nnlayout',
+type: 'POST',
+contentType: 'application/json',
+data: JSON.stringify({'layout': [{'name': 'input', 'type': 'dense', 'neurons': 64, 'inputdim': 20}, {'name': 'dropout1', 'type': 'dropout', 'percentage': 0.5},
+{'name': 'input', 'type': 'dense', 'neurons': 64}], 'name': 'custom'}),
+success: function(data) { alert(data); }
+});
+*/
+</script>
+<script src="{{ url_for('static', filename='js/layerObject.js') }}"></script>
+<script>
+    var svgContainer = null;
+    var startcoords = {"x": 10, "y": 10};
+    var layerArray = [];
+
+    $(document).ready(function() {
+        init();
+    });
+
+    function init() {
+        svgContainer = d3.select("#nnl")
+            .append("svg")
+            .attr("width", "100%")
+            .attr("height", "500px");
+
+        var t1 = new layerObject(svgContainer, startcoords);
+        layerArray.push(t1);
+    }
+
+    function addLayer() {
+        var t1 = new layerObject(svgContainer, startcoords);
+        layerArray.push(t1);
+    }
+</script>
+
+</script>
+{% endblock %}
